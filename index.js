@@ -62,8 +62,8 @@ client.on('message', msg => {
 	  .setTitle('Lista')
   	.setAuthor('Para vos crack')
     .setTimestamp()
-
-  Object.keys(miembros).map(function(key, index) {
+    const miembrosOrdenados = Object.keys(miembros).sort((a,b) => a.toLowerCase() < b.toLowerCase())
+    miembrosOrdenados.map(function(key, index) {
     if (miembros[key].length %2 ===1){
       miembros[key].push(Date.now())
     }
