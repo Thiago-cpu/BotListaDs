@@ -16,8 +16,8 @@ client.on('ready', () => {
 console.log(`Inciado Como: ${client.user.tag}`);
 client.user.setPresence( {
   
-activity: {name: `Estudiando`,
-type: "PLAYING"},
+activity: {name: `quien ceba mejor mate`,
+type: "COMPETING"},
 status:"online"});})
 client.setMaxListeners (200)
 
@@ -28,8 +28,12 @@ client.on('message', msg => {
   let message = msg.content.toLowerCase()
   if(message.startsWith(`${config.prefix}lista`)) {
     if (!msg.member.voice.channel){
-      return msg.reply('Tenés que estar en un voicechat gilastruchis')
+      return msg.reply('Mira si voy a tomar lista cuando no estas en clase')
     }
+    if(miembros){
+      return msg.reply('ya estoy tomando lista pelotu2')
+    }
+    client.user.setActivity('los presentes', { type: 'LISTENING' })
     update = true;
     miembros = {}
     msg.reply('Tomando lista...')
@@ -59,8 +63,9 @@ client.on('message', msg => {
   }
   if(message.startsWith(`${config.prefix}fin`)) {
     if (!miembros){
-      return msg.reply('Tenes que hacer .lista primero gilastruchis')
+      return msg.reply('Todavía no tome listaaa')
     }
+    client.user.setActivity('quien ceba mejor mate', { type: 'COMPETING' })
     update = false;
     msg.reply('Enviando lista...')
     const Tabla = new MessageEmbed()
@@ -76,6 +81,7 @@ client.on('message', msg => {
     Tabla.addField(key,`${ObtenerMinutos(miembros[key])} minutos en clase`, true)
   });
     Profesor.send(Tabla)
+    miembros = null
   }
   });
 function obtenerNombre(member){
