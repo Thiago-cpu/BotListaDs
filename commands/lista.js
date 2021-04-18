@@ -16,13 +16,10 @@ module.exports = {
     let canal = message.member.voice.channel
     client.canalID = canal.id
     canal.members.forEach((member,_) => {
-      let nombre = this.obtenerNombre(member)
+      let nombre = member.displayName
       const hora = Date.now()
       client.miembros[nombre] = [hora]
     })
     console.log(client.miembros)
   },
-  obtenerNombre(member){
-    return member.nickname || member.user.username
-  }
 }
