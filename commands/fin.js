@@ -1,7 +1,7 @@
 module.exports = {
   name: 'fin',
   description: "Es un comando para finalizar la lista previamente iniciada",
-  execute(client,message,args,Discord){
+  execute(client,message,_args,Discord){
     if (!client.miembros){
       return message.reply('Todavía no tome listaaa')
     }
@@ -10,20 +10,20 @@ module.exports = {
     }
     client.user.setActivity('quien ceba mejor mate', { type: 'COMPETING' })
     message.reply('Enviando lista...')
-    const Tabla = new Discord.MessageEmbed()
+    const Lista = new Discord.MessageEmbed()
 	  .setColor('#0099ff')
 	  .setTitle('Lista')
-  	.setAuthor('Para vos crack')
     .setTimestamp()
+    let descripcion = ''
     const miembrosOrdenados = Object.keys(client.miembros).sort()
-    console.log(miembrosOrdenados)
-    miembrosOrdenados.map((key, index) => {  
-      if (client.miembros[key].length %2 ===1){
-        client.miembros[key].push(Date.now())
+    miembrosOrdenados.map(nombre => {  
+      if (client.miembros[nombre].length %2 ===1){
+        client.miembros[nombre].push(Date.now())
       }
-      Tabla.addField(key,`${this.obtenerMinutos(client.miembros[key])} minutos en clase`, true)
+      descripcion += `**${nombre}**: Estuvo ${this.obtenerMinutos(client.miembros[nombre])} minutos en clase \n`
     });
-    client.profesor.send(Tabla)
+    Lista.setDescription(descripcion)
+    client.profesor.send(Lista)
     client.miembros = null
   },
   obtenerMinutos(miembroTimes){

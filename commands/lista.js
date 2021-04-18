@@ -2,7 +2,7 @@
 module.exports = {
   name: 'lista',
   description: "Es un comando para empezar a tomar lista",
-  execute(client, message, args, Discord){
+  execute(client, message, _args, _Discord){
     if (!message.member.voice.channel){
       return message.reply('Mira si voy a tomar lista cuando no estas en clase')
     }
