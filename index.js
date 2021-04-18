@@ -27,6 +27,9 @@ client.on('message', msg => {
   if (msg.author == client.user){return}
   let message = msg.content.toLowerCase()
   if(message.startsWith(`${config.prefix}lista`)) {
+    if (!msg.member.voice.channel){
+      return msg.reply('Tenés que estar en un voicechat gilastruchis')
+    }
     update = true;
     miembros = {}
     msg.reply('Tomando lista...')
@@ -55,6 +58,9 @@ client.on('message', msg => {
     })
   }
   if(message.startsWith(`${config.prefix}fin`)) {
+    if (!miembros){
+      return msg.reply('Tenes que hacer .lista primero gilastruchis')
+    }
     update = false;
     msg.reply('Enviando lista...')
     const Tabla = new MessageEmbed()
