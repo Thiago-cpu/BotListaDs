@@ -5,7 +5,7 @@ module.exports = {
     if (!global.miembros){
       return message.reply('Todavía no tome listaaa')
     }
-    if (!global.profesor === message.author){
+    if (!(global.profesor === message.author)){
       return message.reply('Vos no sos el dueño de la lista')
     }
     client.user.setActivity('quien ceba mejor mate', { type: 'COMPETING' })
