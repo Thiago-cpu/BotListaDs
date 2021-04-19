@@ -10,12 +10,14 @@ module.exports = {
     }
     client.user.setActivity('quien ceba mejor mate', { type: 'COMPETING' })
     message.reply('Enviando lista...')
+    delete client.miembros[message.member.displayName]
+    const miembrosOrdenados = Object.keys(client.miembros).sort()
+    
     const Lista = new Discord.MessageEmbed()
 	  .setColor('#0099ff')
-	  .setTitle('Lista')
+	  .setTitle(`Asistieron ${miembrosOrdenados.length} alumnos`)
     .setTimestamp()
     let descripcion = ''
-    const miembrosOrdenados = Object.keys(client.miembros).sort()
     miembrosOrdenados.map(nombre => {  
       if (client.miembros[nombre].length %2 ===1){
         client.miembros[nombre].push(Date.now())
