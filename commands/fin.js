@@ -15,7 +15,7 @@ module.exports = {
     
     const Lista = new Discord.MessageEmbed()
 	  .setColor('#0099ff')
-	  .setTitle(`Lista del curso: X`)
+	  .setTitle(`Lista del curso: ${client.curso}`)
     .setTimestamp()
     let descripcion = ''
     
@@ -34,7 +34,6 @@ module.exports = {
     });
     Lista.setDescription(descripcion)
     client.profesor.send(Lista)
-    console.log(client.miembros)
     client.miembros = null
   },
   obtenerMinutos(miembroTimes){
@@ -45,7 +44,6 @@ module.exports = {
       } else {
         ms += value
       }
-
     })
     return Math.floor(ms/1000/60)
   }

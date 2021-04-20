@@ -15,9 +15,9 @@ module.exports = {
     client.miembros = {}
     client.profesor = message.author
     const rolId = message.mentions.roles.first().id
+    client.curso = message.mentions.roles.first().name
     const canal = message.member.voice.channel
     client.canalID = canal.id
-    console.log("rolId", rolId)
     message.guild.members.fetch()
     .then(miembros => {
       miembros.forEach(miembro =>{
@@ -33,14 +33,11 @@ module.exports = {
         client.miembros[member.displayName] = [hora]
         }
       })
-      console.log(client.miembros)
     })
     .catch(console.error)
 
     
     client.user.setActivity('los presentes', { type: 'LISTENING' })
     message.reply('Tomando lista...')
-    
-    console.log(client.miembros)
   },
 }
