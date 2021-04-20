@@ -15,17 +15,26 @@ module.exports = {
     
     const Lista = new Discord.MessageEmbed()
 	  .setColor('#0099ff')
-	  .setTitle(`Asistieron ${miembrosOrdenados.length} alumnos`)
+	  .setTitle(`Lista del curso: X`)
     .setTimestamp()
     let descripcion = ''
-    miembrosOrdenados.map(nombre => {  
+    
+    miembrosOrdenados.forEach(nombre => {  
+      let minutosEnClase;
       if (client.miembros[nombre].length %2 ===1){
         client.miembros[nombre].push(Date.now())
       }
-      descripcion += `**${nombre}**: Estuvo ${this.obtenerMinutos(client.miembros[nombre])} minutos en clase \n`
+      if (client.miembros[nombre].length === 0){
+        minutosEnClase = "ausente"
+      }else{
+        minutosEnClase = `${this.obtenerMinutos(client.miembros[nombre])} minutos en clase`
+       
+      }
+    descripcion += `**${nombre}**: Estuvo ${minutosEnClase} \n`
     });
     Lista.setDescription(descripcion)
     client.profesor.send(Lista)
+    console.log(client.miembros)
     client.miembros = null
   },
   obtenerMinutos(miembroTimes){
