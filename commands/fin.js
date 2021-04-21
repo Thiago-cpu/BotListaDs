@@ -10,27 +10,37 @@ module.exports = {
     }
     client.user.setActivity('quien ceba mejor mate', { type: 'COMPETING' })
     message.reply('Enviando lista...')
+    //calculando duración de la clase
+    const duracionClase = Math.floor((Date.now() - client.inicio)/1000/60) 
     delete client.miembros[message.member.displayName]
     const miembrosOrdenados = Object.keys(client.miembros).sort()
     
     const Lista = new Discord.MessageEmbed()
 	  .setColor('#0099ff')
-	  .setTitle(`Lista del curso: ${client.curso}`)
+	  .setTitle(
+    `Lista del curso: ${client.curso}\nDuración de la clase: ${duracionClase} minutos`)
+    
+
     .setTimestamp()
     let descripcion = ''
     
     miembrosOrdenados.forEach(nombre => {  
-      let minutosEnClase;
+      let presencia;
       if (client.miembros[nombre].length %2 ===1){
         client.miembros[nombre].push(Date.now())
       }
       if (client.miembros[nombre].length === 0){
-        minutosEnClase = "ausente"
+        presencia = "ausente"
       }else{
-        minutosEnClase = `${this.obtenerMinutos(client.miembros[nombre])} minutos en clase`
+        let minutosEnClase = this.obtenerMinutos(client.miembros[nombre]) 
+        if(minutosEnClase === duracionClase){
+          presencia = "presente"
+        } else{
+          presencia = `${minutosEnClase} minutos en clase`
+        }
        
       }
-    descripcion += `**${nombre}**: Estuvo ${minutosEnClase} \n`
+    descripcion += `**${nombre}**: Estuvo ${presencia} \n`
     });
     Lista.setDescription(descripcion)
     client.profesor.send(Lista)

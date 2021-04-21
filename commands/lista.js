@@ -3,6 +3,9 @@ module.exports = {
   name: 'lista',
   description: "Es un comando para empezar a tomar lista",
   execute(client, message, _args, _Discord){
+    if (!(message.member.id === '617530490869645313')){
+      return message.reply('No sos el profesor')
+    }
     if (!message.member.voice.channel){
       return message.reply('Mira si voy a tomar lista cuando no estas en clase')
     }
@@ -13,6 +16,7 @@ module.exports = {
       return message.reply('¿En qué curso tomo lista?')
     }
     client.miembros = {}
+    client.inicio = Date.now()
     client.profesor = message.author
     const rolId = message.mentions.roles.first().id
     client.curso = message.mentions.roles.first().name
