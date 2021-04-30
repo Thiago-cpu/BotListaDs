@@ -16,6 +16,7 @@ const config = require('./config.json');
 
 client.commands = new Discord.Collection()
 client.events = new Discord.Collection()
+client.listas = new Discord.Collection()
 const handlers = ['command_handler', 'event_handler']
 
 handlers.forEach(handler => {
