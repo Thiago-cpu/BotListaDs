@@ -5,25 +5,26 @@ module.exports = {
   description: "Es un comando para empezar a tomar lista",
   execute(client, message, _args, _Discord){
     console.log(`${message.member.displayName} uso el comando lista`)
-
     if (!profesores.includes(message.member.id)){
       console.error(`${message.member.displayName} no era profesor.`)
       return message.reply('No sos el profesor')
     }
+    const profesorID = message.member.id
+    
     if (!message.member.voice.channel){
       console.error(`${message.member.displayName} no estaba en un canal.`)
       return message.reply('Mira si voy a tomar lista cuando no estas en clase')
     }
-    if(client.listas[message.member.id]){
+    if(client.listas[profesorID]){
       console.error(`${message.member.displayName} ya estaba tomando lista.`)
-      return message.reply('Bajen el volumen que no escucho los presentes')
+      return message.reply(`Todavía estoy tomando lista en ${client.listas[profesorID].curso} `)
     }
     if(!message.mentions.roles.size){
       console.error(`${message.member.displayName} no especificó curso.`)
       return message.reply('¿En qué curso tomo lista?')
     }
-    client.listas[message.member.id] = {}
-    const lista = client.listas[message.member.id]
+    client.listas[profesorID] = {}
+    const lista = client.listas[profesorID]
     lista.miembros = {}
     lista.inicio = Date.now()
     lista.profesor = message.author

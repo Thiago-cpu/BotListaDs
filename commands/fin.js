@@ -8,7 +8,7 @@ module.exports = {
       return message.reply('Todavía no tome listaaa')
     }
     
-    client.user.setActivity('quien ceba mejor mate', { type: 'COMPETING' })
+    
     message.reply('Enviando lista...')
     const lista = client.listas[message.member.id]
     //calculando duración de la clase
@@ -45,6 +45,9 @@ module.exports = {
     Lista.setDescription(descripcion)
     lista.profesor.send(Lista)
     delete client.listas[message.member.id]
+    if (!(Object.keys(client.listas).length)){
+      client.user.setActivity('quien ceba mejor mate', { type: 'COMPETING' })
+    }
     console.log(`${message.member.displayName} pudo finalizar la lista correctamente`)
     console.log(lista)
   },
