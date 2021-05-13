@@ -16,16 +16,16 @@ module.exports = {
     delete lista.miembros[message.member.displayName]
     const miembrosOrdenados = Object.keys(lista.miembros).sort()
     
-    const Lista = new Discord.MessageEmbed()
+    let Lista = new Discord.MessageEmbed()
 	  .setColor('#0099ff')
 	  .setTitle(
     `Lista del curso: ${lista.curso}\nDuración de la clase: ${duracionClase} minutos`)
     
 
-    .setTimestamp()
-    let descripcion = ''
     
-    miembrosOrdenados.forEach(nombre => {  
+    let descripcion =''
+    
+    miembrosOrdenados.forEach((nombre) => {  
       let presencia;
       if (lista.miembros[nombre].length %2 ===1){
         lista.miembros[nombre].push(Date.now())
@@ -40,10 +40,20 @@ module.exports = {
           presencia = `${minutosEnClase} minutos en clase`
         }
       }
-    descripcion += `**${nombre}**: Estuvo ${presencia} \n`
+    const nuevoAlumno = `**${nombre}**: Estuvo ${presencia} \n`;
+    if((nuevoAlumno.length + descripcion.length) > 2048) {
+      Lista.setDescription(descripcion)
+      lista.profesor.send(Lista)
+      Lista = new Discord.MessageEmbed()
+	    .setColor('#0099ff')
+      descripcion = ''
+    }
+    descripcion += nuevoAlumno
     });
+    Lista.setTimestamp()
     Lista.setDescription(descripcion)
     lista.profesor.send(Lista)
+
     delete client.listas[message.member.id]
     if (!(Object.keys(client.listas).length)){
       client.user.setActivity('quien ceba mejor mate', { type: 'COMPETING' })
