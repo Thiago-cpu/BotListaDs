@@ -3,7 +3,7 @@ client.setMaxListeners (200)
 console.log(`Inciado Como: ${client.user.tag}`);
 client.user.setPresence( {
   
-activity: {name: `quien ceba mejor mate`,
+activity: {name: `Hola mundo`,
 type: "COMPETING"},
 status:"online"});
 }

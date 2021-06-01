@@ -13,7 +13,10 @@ const config = require('./config.json');
 
 
 
-
+client.log = function(str){
+  const date = new Date
+  console.log(`${date.getHours() - 3}:${date.getMinutes()}:${date.getSeconds()}: ${str}`)
+}
 client.commands = new Discord.Collection()
 client.events = new Discord.Collection()
 client.listas = new Discord.Collection()

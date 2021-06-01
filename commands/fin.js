@@ -2,7 +2,7 @@ module.exports = {
   name: 'fin',
   description: "Es un comando para finalizar la lista previamente iniciada",
   execute(client,message,_args,Discord){
-    console.log(`${message.member.displayName} usó el comando fin`)
+    client.log(`${message.member.displayName} usó el comando fin`)
     const profesor = message.member.id 
     if (!client.listas[profesor]){
       return message.reply('Todavía no tome listaaa')
@@ -58,8 +58,8 @@ module.exports = {
     if (!(Object.keys(client.listas).length)){
       client.user.setActivity('quien ceba mejor mate', { type: 'COMPETING' })
     }
-    console.log(`${message.member.displayName} pudo finalizar la lista correctamente`)
-    console.log(lista)
+    client.log(`${message.member.displayName} pudo finalizar la lista correctamente`)
+    client.log(lista)
   },
   obtenerMinutos(miembroTimes){
     let ms = 0;
